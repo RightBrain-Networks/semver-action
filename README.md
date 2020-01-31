@@ -1,4 +1,4 @@
-![Release Version](https://img.shields.io/github/v/release/RightBrain-Networks/semver-action)
+![Release Version](https://img.shields.io/github/v/release/RightBrain-Networks/semver-action) ![Self Version & Release](https://github.com/RightBrain-Networks/semver-action/workflows/Self%20Version%20&%20Release/badge.svg)
 
 # semver-action
 
