@@ -54,7 +54,7 @@ jobs:
       uses: actions/checkout@v1
     - name: Run Auto-Semver
       id: semver
-      uses: RightBrain-Networks/semver-action@v1.0.0
+      uses: RightBrain-Networks/semver-action@1.0.0
       with:
         mode: set
     - name: Create Release
@@ -104,7 +104,7 @@ jobs:
         python-version: 3.7
     - name: Run Auto-Semver
       id: semver
-      uses: RightBrain-Networks/semver-action@v1.0.0
+      uses: RightBrain-Networks/semver-action@1.0.0
       with:
         mode: set
     - name: Install dependencies
