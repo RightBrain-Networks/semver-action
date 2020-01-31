@@ -1,0 +1,15 @@
+name: "Run Auto-Semver"
+description: "Github Action for RBN Auto Semver by Branch tool"
+author: RightBrain-Networks
+inputs:
+  mode:
+    description: 'Either run in either `get` or `set` mode'
+    default: set
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.mode }}
+branding:
+  icon: chevrons-up
+  color: blue
