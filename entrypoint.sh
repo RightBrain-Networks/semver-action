@@ -1,3 +1,6 @@
+#!/bin/sh
+set -e
+
 if [ "$1" = "set" ]
 then
     # Runs auto-semver and grabs outputs
@@ -12,6 +15,7 @@ then
     echo ::set-output name=SEMVER_NEW_VERSION::$SEMVER_NEW_VERSION
     echo ::set-output name=VERSION::$VERSION
 elif [ "$1" = "get"]
+then
     # Updates .bumpversion files to tagged version
     export regex="([0-9]+.[0-9]+.[0-9]+)"
     echo ${{ github.ref }} > tag.txt
