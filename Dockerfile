@@ -1,4 +1,4 @@
-FROM rightbrainnetworks/auto-semver:latest
+FROM rightbrainnetworks/auto-semver:0.6.2
 
 LABEL "com.github.actions.name"="Run Auto-Semver"
 LABEL "com.github.actions.description"="Github Action for RBN Auto Semver by Branch tool"
