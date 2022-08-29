@@ -9,5 +9,7 @@ LABEL repository="https://github.com/RightBrain-Networks/semver-action"
 LABEL homepage="https://github.com/RightBrain-Networks/semver-action"
 LABEL maintainer="RightBrain Networks <cloud@rightbrainnetworks.com>"
 
+USER root
 ADD entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
