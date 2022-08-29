@@ -4,7 +4,15 @@ author: RightBrain-Networks
 inputs:
   mode:
     description: 'Either run in either `get` or `set` mode'
+    required: false
     default: set
+outputs:
+  RETURN_STATUS:
+    description: Return status of AutoSemver
+  SEMVER_NEW_VERSION:
+    description: New version set by AutoSemver
+  VERSION:
+    description: Version returned by AutoSemver
 runs:
   using: docker
   image: Dockerfile
