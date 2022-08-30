@@ -1,6 +1,11 @@
 #!/bin/sh
 set -e
 
+if ! [[ -z "$2" ]]
+then
+  cd "$2"
+fi
+
 if [ "$1" = "set" ]
 then
     # Runs auto-semver and grabs outputs
