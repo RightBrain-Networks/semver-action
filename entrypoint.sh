@@ -4,11 +4,9 @@ set -e
 if [ "$1" = "set" ]
 then
     # Runs auto-semver and grabs outputs
-    echo "Changed"
     export regex='^\s*current_version\s*=\s*\K[^\s]+'
     echo $regex
-    semver -n
-    export RETURN_STATUS=$?
+    export RETURN_STATUS=$(semver -n || echo $?)
     echo "RETURN_STATUS: ${RETURN_STATUS}"
     export SEMVER_NEW_VERSION=`grep -Po ${regex} .bumpversion.cfg`
     echo "Semver new version: ${SEMVER_NEW_VERSION}"
