@@ -15,7 +15,7 @@ elif [ "$1" = "get" ]
 then
     # Updates .bumpversion files to tagged version
     export regex="([0-9]+.[0-9]+.[0-9]+)"
-    echo ${{ github.ref }} > tag.txt
+    echo github.ref  > tag.txt
     VERSION=`grep -Po ${regex} tag.txt`
     bumpversion minor --no-tag --new-version ${VERSION}
     echo ::set-output name=VERSION::$VERSION
