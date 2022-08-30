@@ -4,6 +4,8 @@ set -e
 if [ "$1" = "set" ]
 then
     # Runs auto-semver and grabs outputs
+    echo "Current Working Directory: $(pwd)"
+    echo "$(ls)"
     export regex='^\\s*current_version\\s*=\\s*\\K[^\\s]+'
     export RETURN_STATUS=`semver -n -D`
     export STATIC_TEST="Static string"
@@ -11,7 +13,6 @@ then
     echo $STATIC_TEST
     export SEMVER_NEW_VERSION=`grep -Po '${regex}' .bumpversion.cfg`
     export VERSION=`semver_get_version -d`
-
     echo "::set-output name=STATIC_TEST::$STATIC_TEST"
     echo "::set-output name=RETURN_STATUS::$RETURN_STATUS"
     echo "::set-output name=SEMVER_NEW_VERSION::$SEMVER_NEW_VERSION"
