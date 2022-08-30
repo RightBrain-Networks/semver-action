@@ -8,14 +8,13 @@ then
     echo $regex
     echo `semver -n`
     export RETURN_STATUS=$?
-    echo "Semver Return Status: ${RETURN_STATUS}"
     export SEMVER_NEW_VERSION=`grep -Po ${regex} .bumpversion.cfg`
     echo "Semver new version: ${SEMVER_NEW_VERSION}"
     export VERSION=`semver_get_version -d`
     echo "::set-output name=RETURN_STATUS::$RETURN_STATUS"
     echo "::set-output name=SEMVER_NEW_VERSION::$SEMVER_NEW_VERSION"
     echo "::set-output name=VERSION::$VERSION"
-elif [ "$1" = "get"]
+elif [ "$1" = "get" ]
 then
     # Updates .bumpversion files to tagged version
     export regex="([0-9]+.[0-9]+.[0-9]+)"
