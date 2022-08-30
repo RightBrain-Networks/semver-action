@@ -8,6 +8,7 @@ then
     export RETURN_STATUS=`semver -n -D`
     echo "Semver Return Status: ${RETURN_STATUS}"
     export SEMVER_NEW_VERSION=`grep -Po '${regex}' .bumpversion.cfg`
+    echo "Semver new version: ${SEMVER_NEW_VERSION}"
     export VERSION=`semver_get_version -d`
     echo "::set-output name=STATIC_TEST::$STATIC_TEST"
     echo "::set-output name=RETURN_STATUS::$RETURN_STATUS"
