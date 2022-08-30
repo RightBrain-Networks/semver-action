@@ -6,9 +6,8 @@ then
     # Runs auto-semver and grabs outputs
     export regex='^\s*current_version\s*=\s*\K[^\s]+'
     echo $regex
-    OUTPUT=$(semver -n)
+    semver -n
     export RETURN_STATUS=$?
-    echo "OUTPUT: ${OUTPUT}"
     echo "RETURN_STATUS: ${RETURN_STATUS}"
     export SEMVER_NEW_VERSION=`grep -Po ${regex} .bumpversion.cfg`
     echo "Semver new version: ${SEMVER_NEW_VERSION}"
