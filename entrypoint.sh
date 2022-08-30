@@ -4,10 +4,8 @@ set -e
 if [ "$1" = "set" ]
 then
     # Runs auto-semver and grabs outputs
-    echo "Working directory is $(pwd)"
-    echo "$(ls -al)"
     export regex='^\\s*current_version\\s*=\\s*\\K[^\\s]+'
-    echo "$(semver -h)"
+    echo $(semver -n)
     export RETURN_STATUS=`semver -n -D`
     echo "Semver Return Status: ${RETURN_STATUS}"
     export SEMVER_NEW_VERSION=`grep -Po '${regex}' .bumpversion.cfg`
