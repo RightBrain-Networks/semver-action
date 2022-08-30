@@ -1,16 +1,11 @@
 #!/bin/sh
 set -e
 
-if ! [[ -z "$2" ]]
-then
-  cd "$2"
-fi
-
 if [ "$1" = "set" ]
 then
     # Runs auto-semver and grabs outputs
     echo "Working directory is $(pwd)"
-    echo "$(ls)"
+    echo "$(ls -al)"
     export regex='^\\s*current_version\\s*=\\s*\\K[^\\s]+'
     export RETURN_STATUS=`semver -n -D`
     echo "Semver Return Status: ${RETURN_STATUS}"

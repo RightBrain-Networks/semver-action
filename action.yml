@@ -6,10 +6,6 @@ inputs:
     description: 'Either run in either `get` or `set` mode'
     required: false
     default: set
-  appDirectory:
-    description: 'Directory the application files reside in'
-    required: false
-    default: ''
 outputs:
   RETURN_STATUS:
     description: Return status of AutoSemver
