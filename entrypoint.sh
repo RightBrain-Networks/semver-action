@@ -7,6 +7,7 @@ then
     echo "Working directory is $(pwd)"
     echo "$(ls -al)"
     export regex='^\\s*current_version\\s*=\\s*\\K[^\\s]+'
+    echo "$(semver_get_version -d)"
     export RETURN_STATUS=`semver -n -D`
     echo "Semver Return Status: ${RETURN_STATUS}"
     export SEMVER_NEW_VERSION=`grep -Po '${regex}' .bumpversion.cfg`
