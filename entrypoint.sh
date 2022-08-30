@@ -4,7 +4,7 @@ set -e
 if [ "$1" = "set" ]
 then
     # Runs auto-semver and grabs outputs
-    export regex='^\s*current_version\s*=\s*\K[^\s]+'
+    regex='^\s*current_version\s*=\s*\K[^\s]+'
     export RETURN_STATUS=$(semver -n || echo $?)
     export SEMVER_NEW_VERSION=`grep -Po ${regex} .bumpversion.cfg`
     export VERSION=`semver_get_version -d`
@@ -15,7 +15,7 @@ elif [ "$1" = "get" ]
 then
     # Updates .bumpversion files to tagged version
     export regex="([0-9]+.[0-9]+.[0-9]+)"
-    echo github.ref  > tag.txt
+    echo ${{ github.ref }}  > tag.txt
     VERSION=`grep -Po ${regex} tag.txt`
     bumpversion minor --no-tag --new-version ${VERSION}
     echo ::set-output name=VERSION::$VERSION
