@@ -16,7 +16,13 @@ elif [ "$1" = "get" ]
 then
     # Updates .bumpversion files to tagged version
     export regex="([0-9]+.[0-9]+.[0-9]+)"
-    VERSION=`grep -Po ${regex} ${{ github.ref_name }}`
+    VERSION=`grep -Po ${regex} ${{ github.ref }}`
     # bumpversion minor --no-tag --new-version ${VERSION}
+    echo ::set-output name=VERSION::$VERSION
+elif [ "$1" = "update" ]
+then
+    # Updates .bumpversion files to tagged version
+    VERSION="$2"
+    bumpversion minor --no-tag --new-version ${VERSION}
     echo ::set-output name=VERSION::$VERSION
 fi
