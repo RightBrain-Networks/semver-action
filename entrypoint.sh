@@ -17,7 +17,7 @@ then
     # Updates .bumpversion files to tagged version
     export regex="([0-9]+.[0-9]+.[0-9]+)"
     git fetch --all --tags
-    VERSIONS=`git tag -l --sort=refname ${regex}`
+    VERSIONS=`git tag`
     echo $VERSIONS
     # bumpversion minor --no-tag --new-version ${VERSION}
     # echo ::set-output name=VERSION::$VERSION
