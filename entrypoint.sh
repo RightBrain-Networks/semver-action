@@ -15,12 +15,28 @@ then
 elif [ "$1" = "get" ]
 then
     # Updates .bumpversion files to tagged version
-    export regex="([0-9]+.[0-9]+.[0-9]+)"
+    export regex="^([0-9]+.[0-9]+.[0-9]+)"
+
     git fetch --all --tags
-    VERSIONS=`git tag`
-    echo $VERSIONS
+    TAGS=( $(git tag) )
+    declare -a VERSIONS=()
+
+    for i in "${TAGS[@]}"
+    do
+      if [[ "$i"  =~ $regex ]];
+      then
+         VERSIONS+=($i)
+      fi
+    done
+
+    if [ -z "$VERSIONS" ]; then
+      echo "No tags found that comply with version numbering specified by https://semver.org/"
+    else
+      sorted=( $(sort -V <<<"${VERSIONS[*]}") )
+      VERSION=${sorted[-1]}
     # bumpversion minor --no-tag --new-version ${VERSION}
-    # echo ::set-output name=VERSION::$VERSION
+      echo ::set-output name=VERSION::$VERSION
+    fi
 elif [ "$1" = "update" ]
 then
     # Updates .bumpversion files to tagged version
