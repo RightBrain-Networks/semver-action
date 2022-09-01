@@ -57,5 +57,5 @@ then
     VERSION="$2"
 
     bumpversion minor --no-tag --new-version ${VERSION}
-    echo ::set-output name=VERSION::$VERSION
+    echo "::set-output name=VERSION::$VERSION"
 fi
