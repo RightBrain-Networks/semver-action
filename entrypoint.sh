@@ -43,13 +43,13 @@ then
     echo "::set-output name=VERSION::$VERSION"
 elif [ "$1" = "check" ]
 then
-    # Get highest tagged version(if exists), and compares to version from params. Sets VERSION equal to whichever is higher.
+    # Get highest tagged version(if exists), and compares to version from params. Sets HIGHEST_VERSION equal to whichever is higher.
     if [ -z "$2" ]
     then
       echo "Requires a semver version number for comparison"
     else
       NEWEST_VERSION=compare_versions "$2"
-      echo "::set-output name=VERSION::$NEWEST_VERSION"
+      echo "::set-output name=HIGHEST_VERSION::$NEWEST_VERSION"
     fi
 elif [ "$1" = "update" ]
 then
