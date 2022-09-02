@@ -6,10 +6,6 @@ inputs:
     description: 'Run in either `get`, `check`, or `update` mode'
     required: false
     default: set
-  version:
-    description: 'Version number, used for comparison in `check` mode, and to update version in `update` mode.'
-    required: false
-    default: ''
 outputs:
   RETURN_STATUS:
     description: Return status of AutoSemver
@@ -22,7 +18,6 @@ runs:
   image: Dockerfile
   args:
     - ${{ inputs.mode }}
-    - ${{ inputs.version }}
 branding:
   icon: chevrons-up
   color: blue
