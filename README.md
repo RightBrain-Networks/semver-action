@@ -56,7 +56,7 @@ https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-acc
 
 #### **To prevent a potential endless loop, ensure the job that generates the release cannot itself be triggered by that release**
 As part of the lifecycle of the auto generated release, a release event is generated, followed by another push event, 
-both with the new tag ref. It is imperative to prevent the release from running again during these subsequent events, 
+both with the new tag ref. If the overall workflow is triggering off of pushes, it is imperative to prevent the release from running again during these subsequent events, 
 for example by ignoring events with ref to tags.
 ```yaml
 if: startsWith(github.ref, ‘refs/tags/’) != true
@@ -146,8 +146,7 @@ jobs:
         mode: get
 ```
 If this job were part of the same workflow as the CheckVersion job from the 'set' mode example above, the job itself 
-would need to have been restricted to only run on release events. It could be additionally filtered to only events with 
-refs to tag.
+would need to have been restricted to only run on release events. 
 ```yaml
-if: github.event_name == 'release' && github.event.action == 'published' && startsWith(github.ref, ‘refs/tags/’)
+if: github.event_name == 'release' && github.event.action == 'published' )
 ```
