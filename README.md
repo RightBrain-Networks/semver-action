@@ -124,7 +124,7 @@ name: Build Python Package
 on:
   release:
     types:
-    - created
+    - published
 
 jobs:
   build:
