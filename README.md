@@ -56,10 +56,12 @@ https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-acc
 
 #### **To prevent a potential endless loop, ensure the job that generates the release cannot itself be triggered by that release**
 As part of the lifecycle of the auto generated release, a release event is generated, followed by another push event, 
-both with the new tag ref. If the overall workflow is triggering off of pushes, it is imperative to prevent the release from running again during these subsequent events, 
-for example by ignoring events with ref to tags.
+both with the new tag ref. If the workflow containing the release creation is triggering off of pushes, it is imperative 
+to prevent the release from running again during the release's lifecycle push, potentially triggering another release. 
+For example, by ignoring events with ref to tags. In case it will also be part of workflow triggered by release events, 
+it should also be restricted from running during a release.
 ```yaml
-if: startsWith(github.ref, ‘refs/tags/’) != true
+github.event_name == 'release' && github.event.action == 'published' && startsWith(github.ref, 'refs/tags/')
 ```
 
 #### Full Example
@@ -74,7 +76,7 @@ on:
 jobs:
   CheckVersion:
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published' && startsWith(github.ref, ‘refs/tags/’)
+    if: github.event_name == 'release' && github.event.action == 'published' && startsWith(github.ref, 'refs/tags/')
     outputs:
         RETURN_STATUS: steps['semver']['outputs']['RETURN_STATUS']
         VERSION: steps['semver']['outputs']['VERSION']
