@@ -3,7 +3,7 @@ description: "Github Action for RBN Auto Semver by Branch tool"
 author: RightBrain-Networks
 inputs:
   mode:
-    description: 'Run in either `get`, `check`, or `update` mode'
+    description: 'Run in either `get` or `set` mode'
     required: false
     default: set
 outputs:
