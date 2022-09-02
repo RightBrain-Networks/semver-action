@@ -1,35 +1,6 @@
 #!/bin/sh
 set -e
 
-compare_versions() {
-  export regex="^([0-9]+.[0-9]+.[0-9]+)"
-
-      git fetch --all --tags
-      TAGS=( $(git tag) )
-      declare -a VERSIONS=()
-
-      for i in "${TAGS[@]}"
-      do
-        if [[ "$i"  =~ $regex ]];
-        then
-           VERSIONS+=($i)
-        fi
-      done
-
-      if [ -z "$VERSIONS" ]; then
-        echo "$1"
-      else
-        sorted=( $(sort -V <<<"${VERSIONS[*]}") )
-        VERSION=${sorted[-1]}
-
-        if dpkg --compare-versions $1 gt $VERSION ; then
-          echo "$1"
-        else
-          echo $VERSION
-        fi
-      fi
-}
-
 if [ "$1" = "set" ]
 then
     # Runs auto-semver and grabs outputs
