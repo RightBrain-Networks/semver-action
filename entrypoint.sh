@@ -20,6 +20,6 @@ then
     echo "$(cat tag.txt)"
     VERSION=$(grep -Po "${regex}" tag.txt)
 
-    # bumpversion minor --no-tag --new-version ${VERSION}
+    bumpversion minor --no-tag --new-version ${VERSION}
     echo ::set-output name=VERSION::$VERSION
 fi
