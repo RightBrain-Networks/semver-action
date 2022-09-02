@@ -41,21 +41,12 @@ then
     echo "::set-output name=RETURN_STATUS::$RETURN_STATUS"
     echo "::set-output name=SEMVER_NEW_VERSION::$SEMVER_NEW_VERSION"
     echo "::set-output name=VERSION::$VERSION"
-elif [ "$1" = "check" ]
-then
-    # Get highest tagged version(if exists), and compares to version from params. Sets HIGHEST_VERSION equal to whichever is higher.
-    if [ -z "$2" ]
-    then
-      echo "Requires a semver version number for comparison"
-    else
-      NEWEST_VERSION=compare_versions "$2"
-      echo "::set-output name=HIGHEST_VERSION::$NEWEST_VERSION"
-    fi
-elif [ "$1" = "update" ]
+elif [ "$1" = "get" ]
 then
     # Updates .bumpversion files to tagged version
-    VERSION="$2"
-
+    export regex="([0-9]+.[0-9]+.[0-9]+)"
+    echo "${{ github.ref }"} > tag.txt
+    VERSION=`grep -Po "${regex}" tag.txt`
     bumpversion minor --no-tag --new-version ${VERSION}
-    echo "::set-output name=VERSION::$VERSION"
+    echo ::set-output name=VERSION::$VERSION
 fi
