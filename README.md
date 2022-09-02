@@ -54,9 +54,12 @@ As per Github's documentation:
 
 https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 
-#### **To prevent a potential endless loop, ensure the job that generates the release cannot be triggered by that release**
+#### **To prevent a potential endless loop, ensure the job that generates the release cannot itself be triggered by that release**
+As part of the lifecycle of the auto generated release, a release event is generated, followed by another push event, 
+both with the new tag ref. It is imperative to prevent the release from running again during these subsequent events, 
+for example by ignoring events with ref to tags.
 ```yaml
-if: github.event_name != 'release' && github.event.action != 'created'
+if: startsWith(github.ref, ‘refs/tags/’) != true
 ```
 
 #### Full Example
@@ -71,7 +74,7 @@ on:
 jobs:
   CheckVersion:
     runs-on: ubuntu-latest
-    if: github.event_name != 'release' && github.event.action != 'created'
+    if: github.event_name == 'release' && github.event.action == 'published' && startsWith(github.ref, ‘refs/tags/’)
     outputs:
         RETURN_STATUS: steps['semver']['outputs']['RETURN_STATUS']
         VERSION: steps['semver']['outputs']['VERSION']
@@ -115,8 +118,7 @@ The semantic version found in the `ref`
 #### Example
 
 In this example, the version is updated from the `ref` to build a python package. It is set to only run when a release
-is created.
-
+is created. 
 ```yaml
 name: Build Python Package
 on:
@@ -127,7 +129,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'created'
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.7
@@ -143,4 +144,10 @@ jobs:
       uses: RightBrain-Networks/semver-action@1.0.0
       with:
         mode: get
+```
+If this job were part of the same workflow as the CheckVersion job from the 'set' mode example above, the job itself 
+would need to have been restricted to only run on release events. It could be additionally filtered to only events with 
+refs to tag.
+```yaml
+if: github.event_name == 'release' && github.event.action == 'published' && startsWith(github.ref, ‘refs/tags/’)
 ```
