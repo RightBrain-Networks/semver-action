@@ -24,7 +24,8 @@ then
     echo ::set-output name=VERSION::$VERSION
 elif [ "$1" = "put" ]
 then
-    # Updates .bumpversion files to tagged version
+    echo "Version = $2"
+    # Updates .bumpversion files to version from args
     export regex="([0-9]+.[0-9]+.[0-9]+)"
     if [ "$2" ]
     then
