@@ -22,4 +22,16 @@ then
 
     bumpversion minor --no-tag --new-version ${VERSION}
     echo ::set-output name=VERSION::$VERSION
+elif [ "$1" = "put" ]
+then
+    # Updates .bumpversion files to tagged version
+    export regex="([0-9]+.[0-9]+.[0-9]+)"
+    if [ "$2" ]
+    then
+      VERSION="$2"
+      bumpversion minor --no-tag --new-version ${VERSION}
+      echo ::set-output name=VERSION::$VERSION
+    else
+      echo "Provide a valid semver number."
+    fi
 fi

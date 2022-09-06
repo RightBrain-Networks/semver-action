@@ -3,9 +3,13 @@ description: "Github Action for RBN Auto Semver by Branch tool"
 author: RightBrain-Networks
 inputs:
   mode:
-    description: 'Run in either `get` or `set` mode'
+    description: 'Run in either `get`, `set`, or `put` mode'
     required: false
     default: set
+  version:
+    description: 'Required for `put` mode'
+    required: false
+    default: ''
 outputs:
   RETURN_STATUS:
     description: Return status of AutoSemver
@@ -18,6 +22,7 @@ runs:
   image: Dockerfile
   args:
     - ${{ inputs.mode }}
+    - ${{ inputs.put }}
 branding:
   icon: chevrons-up
   color: blue
